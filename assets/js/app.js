@@ -81,3 +81,37 @@ searchField.addEventListener("input", () => {
     }, searchTimeoutDuration)
   }
 })
+
+const container = document.querySelector("[data-container]")
+const loading = document.querySelector("[data-loading-screen]")
+const currentLocationBtn = document.querySelector("[data-current-location-btn]")
+const errorContent = document.querySelector("[data-error-content]")
+
+/**
+ *Dsiplay all the weather data in the HTML page.
+ *
+ * @param {number} lat - Latitude value
+ * @param {number} lon - Longitude value
+ */
+export const updateWeather = (lat, lon) => {
+  loading.style.display = "grid"
+  container.style.overflowY = "hidden"
+  container.classList.remove("fade-in")
+
+  errorContent.style.display = "none"
+
+  const currentWeatherSection = document.querySelector("[data-current-weather]")
+  const hightlightSection = document.querySelector("[data-highlights]")
+  const hourlyForecastSection = document.querySelector("[data-hourly-forecast]")
+  const fiveDaysForecast = document.querySelector("[data-5-day-forecast]")
+
+  currentWeatherSection.innerHTML = ""
+  hightlightSection.innerHTML = ""
+  hourlyForecastSection.innerHTML = ""
+  fiveDaysForecast.innerHTML = ""
+
+  if (window.location.hash === "#/current-location") {
+    currentLocationBtn.setAttribute("disabled", "")
+  } else {
+    currentLocationBtn.removeAttribute("disabled")
+  }
