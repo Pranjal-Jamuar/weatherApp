@@ -384,3 +384,6 @@ export const updateWeather = (lat, lon) => {
     })
   })
 }
+
+
+export const error404 = () => (errorContent.style.display = "flex")
