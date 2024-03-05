@@ -264,3 +264,71 @@ export const updateWeather = (lat, lon) => {
       `
       hightlightSection.appendChild(card)
     })
+/**
+     * 24 Hours Forecast Section
+     */
+    fetchData(url.forecast(lat, lon), forecast => {
+      const {
+        list: forecastList,
+        city: { timezone },
+      } = forecast
+
+      hourlyForecastSection.innerHTML = `
+        <h2 class="title-2">Today at</h2>
+        <div class="slider-container">
+          <ul class="slider-list" data-temp></ul>
+          <ul class="slider-list" data-wind></ul>
+        </div>
+      `
+
+      for (const [index, data] of forecastList.entries()) {
+        if (index > 7) break
+
+        const {
+          dt: dateTimeUnix,
+          main: { temp },
+          weather,
+          wind: { deg: windDirection, speed: windSpeed },
+        } = data
+
+        const [{ icon, description }] = weather
+
+        const tempList = document.createElement("li")
+        tempList.classList.add("slider-item")
+        tempList.innerHTML = `
+          <div class="card card-sm slider-card">
+            <p class="body-3">${module.getHours(dateTimeUnix, timezone)}</p>
+            <img
+              src="./assets/images/weather_icons/${icon}.png"
+              width="48"
+              height="48"
+              loading="lazy"
+              alt="${description}"
+              class="weather-icon"
+              title="${description}"
+            />
+            <p class="body-3">${parseInt(temp)}&deg;</p>
+          </div>
+        `
+
+        hourlyForecastSection.querySelector("[data-temp]").appendChild(tempList)
+
+        const windList = document.createElement("li")
+        windList.classList.add("slider-item")
+        windList.innerHTML = `
+          <div class="card card-sm slider-card">
+            <p class="body-3">${module.getHours(dateTimeUnix, timezone)}</p>
+            <img
+              src="./assets/images/weather_icons/direction.png"
+              width="48"
+              height="48"
+              loading="lazy"
+              alt="direction"
+              class="weather-icon"
+              style="transform: rotate(${windDirection - 180}deg)"
+            />
+            <p class="body-3">${parseInt(module.mpsTokmph(windSpeed))} km/h</p>
+          </div>
+        `
+        hourlyForecastSection.querySelector("[data-wind]").appendChild(windList)
+      }
