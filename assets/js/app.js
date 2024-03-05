@@ -116,7 +116,7 @@ export const updateWeather = (lat, lon) => {
     currentLocationBtn.removeAttribute("disabled")
   }
 
-    /**
+  /**
    * Current Weather
    */
   fetchData(url.currentWeather(lat, lon), currentWeather => {
@@ -133,29 +133,32 @@ export const updateWeather = (lat, lon) => {
     const card = document.createElement("div")
     card.classList.add("card", "card-lg", "current-weather-card")
     card.innerHTML = `
-  <h2 class="title-2 card-title">Now</h2>
-  <div class="wrapper">
-  <p class="heading">${parseInt(temp)}&deg;<sup>C</sup></p>
-  <img
-  src="./assets/images/weather_icons/${icon}.png"
-  width="64"
-  height="64"
-  alt="${description}"
-  class="weather-icon"
-  />
-  </div>
-  <p class="body-3">${description}</p>
-  <ul class="meta-list">
-  <li class="meta-item">
-  <span class="m-icon">calendar_today</span>
-  <p class="title-3 meta-text">${module.getDate(dateUnix, timezone)}</p>
-  </li>
-  <li class="meta-item">
-  <span class="m-icon">location_on</span>
-  <p class="title-3 meta-text" data-location></p>
-  </li>
-  </ul>
-  `
+            <h2 class="title-2 card-title">Now</h2>
+            <div class="wrapper">
+              <p class="heading">${parseInt(temp)}&deg;<sup>C</sup></p>
+                <img
+                src="./assets/images/weather_icons/${icon}.png"
+                width="64"
+                height="64"
+                alt="${description}"
+                class="weather-icon"
+                />
+            </div>
+              <p class="body-3">${description}</p>
+              <ul class="meta-list">
+                <li class="meta-item">
+                  <span class="m-icon">calendar_today</span>
+                  <p class="title-3 meta-text">${module.getDate(
+                    dateUnix,
+                    timezone
+                  )}</p>
+                </li>
+                <li class="meta-item">
+                  <span class="m-icon">location_on</span>
+                  <p class="title-3 meta-text" data-location></p>
+                </li>
+              </ul>
+            `
 
     fetchData(url.reverseGeo(lat, lon), ([{ name, country }]) => {
       card.querySelector("[data-location]").innerHTML = `${name}, ${country}`
@@ -163,7 +166,7 @@ export const updateWeather = (lat, lon) => {
 
     currentWeatherSection.appendChild(card)
 
-               /**
+    /**
      * Today's highlights
      */
     fetchData(url.airPollution(lat, lon), airPollution => {
@@ -264,7 +267,8 @@ export const updateWeather = (lat, lon) => {
       `
       hightlightSection.appendChild(card)
     })
-/**
+
+    /**
      * 24 Hours Forecast Section
      */
     fetchData(url.forecast(lat, lon), forecast => {
@@ -332,7 +336,8 @@ export const updateWeather = (lat, lon) => {
         `
         hourlyForecastSection.querySelector("[data-wind]").appendChild(windList)
       }
-/**
+
+      /**
        * 5 Days Forecast Section
        */
       fiveDaysForecast.innerHTML = `
@@ -384,6 +389,5 @@ export const updateWeather = (lat, lon) => {
     })
   })
 }
-
 
 export const error404 = () => (errorContent.style.display = "flex")
