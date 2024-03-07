@@ -99,6 +99,10 @@ a {
   text-decoration: none;
 }
 
+a > h1 {
+  font-weight: 900;
+}
+
 img {
   height: auto;
 }
