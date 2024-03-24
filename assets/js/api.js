@@ -1,5 +1,5 @@
 "use strict"
-import { api_key } from "./key.js"
+const api_key = "5a4517643e3321ce293c70b467dd0aaa"
 
 /**
  *Fetch data from server
